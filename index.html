@@ -409,9 +409,9 @@
 
             <div class="max-w-3xl mx-auto">
                 <div class="mb-8 p-6 cyber-card rounded-lg shadow-md neon-border">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-xl font-bold">Bachelor's Degree in Information Systems</h3>
-                        <span class="text-[var(--primary-neon)] font-mono">2021 - 2024</span>
+                    <div class="md:flex md:justify-between md:items-start mb-2">
+                        <h3 class="text-xl font-bold mb-1 md:mb-0">Bachelor's Degree in Information Systems</h3>
+                        <span class="text-[var(--primary-neon)] font-mono whitespace-nowrap">2021 - 2024</span>
                     </div>
                     <h4 class="text-lg font-semibold mb-2">UniMetrocamp Wyden</h4>
                     <p>Comprehensive studies covering software development, database systems, business analysis, and IT
@@ -419,8 +419,8 @@
                 </div>
 
                 <div class="p-6 cyber-card rounded-lg shadow-md neon-border">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-xl font-bold">Technical Degree in Mechatronics, Robotics & Automation</h3>
+                    <div class="md:flex md:justify-between md:items-start mb-2">
+                        <h3 class="text-xl font-bold mb-1 md:mb-0">Technical Degree in Mechatronics, Robotics & Automation</h3>
                         <span class="text-[var(--primary-neon)] font-mono whitespace-nowrap">2018 - 2020</span>
                     </div>
                     <h4 class="text-lg font-semibold mb-2">Colégio Politécnico Bento Quirino</h4>
@@ -644,7 +644,8 @@
         // Contact form submission
         document.getElementById('contact-form').addEventListener('submit', function (e) {
             e.preventDefault();
-            alert('Thank you for your message! I will get back to you soon.');
+            // alert('Thank you for your message! I will get back to you soon.');
+            alert('This feature isn’t ready just yet 😅 — but you can reach out through the contact button in the hero section!');
             this.reset();
         });
 
