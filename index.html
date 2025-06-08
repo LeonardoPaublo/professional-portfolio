@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leonardo Paublo de Oliveira | Software Engineer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary-neon: #00ff9d;
+            --secondary-neon: #00d4ff;
+            --tertiary-neon: #9d00ff;
+            --accent-neon: #ff6b35;
+            --bg-primary: #0a0e1a;
+            --bg-secondary: #1a1a2e;
+            --bg-tertiary: #16213e;
+            --primary-neon-10: rgba(0, 255, 157, 0.1);
+            --primary-neon-20: rgba(0, 255, 157, 0.2);
+            --primary-neon-30: rgba(0, 255, 157, 0.3);
+        }
+
+        .theme-blue {
+            --primary-neon: #00d4ff;
+            --secondary-neon: #9d00ff;
+            --tertiary-neon: #ff1744;
+            --accent-neon: #ffc107;
+            --primary-neon-10: rgba(0, 212, 255, 0.1);
+            --primary-neon-20: rgba(0, 212, 255, 0.2);
+            --primary-neon-30: rgba(0, 212, 255, 0.3);
+        }
+
+        body {
+            font-family: 'Space Grotesk', monospace;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-tertiary) 100%);
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'JetBrains Mono', monospace;
+            text-shadow: 0 0 10px rgba(0, 255, 157, 0.3);
+        }
+
+        .tech-gradient {
+            background: linear-gradient(135deg, var(--primary-neon) 0%, var(--secondary-neon) 50%, var(--tertiary-neon) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .neon-border {
+            border: 1px solid var(--primary-neon);
+            box-shadow: 0 0 10px var(--primary-neon-30), inset 0 0 10px var(--primary-neon-10);
+        }
+
+        .cyber-card {
+            background: linear-gradient(135deg, rgba(26, 26, 46, 0.9) 0%, rgba(22, 33, 62, 0.9) 100%);
+            border: 1px solid var(--primary-neon-20);
+            backdrop-filter: blur(10px);
+        }
+
+        .terminal-bg {
+            background: #0d1117;
+            border-left: 3px solid var(--primary-neon);
+        }
+
+        .typing-animation {
+            overflow: hidden;
+            border-right: 2px solid var(--primary-neon);
+            white-space: nowrap;
+            width: 0;
+            animation: typing 2.7s steps(27, end) forwards, blink-caret 0.75s step-end infinite;
+            animation-delay: 1s;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 27ch }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--primary-neon) }
+        }
+
+        .glitch {
+            position: relative;
+            animation: glitch 2s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 98% { transform: translate(0); }
+            2% { transform: translate(2px, 0); }
+            4% { transform: translate(-2px, 0); }
+            6% { transform: translate(0, -2px); }
+        }
+
+        .matrix-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent 95%, rgba(0, 255, 157, 0.1) 100%);
+            background-size: 20px 20px;
+            animation: matrix-scroll 20s linear infinite;
+        }
+
+        @keyframes matrix-scroll {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+
+        .scan-line {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00ff9d, transparent);
+            animation: scan 3s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { top: 0; }
+            100% { top: 100%; }
+        }
+
+        .section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s, transform 0.6s;
+        }
+
+        .section-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .dark .project-card {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+        }
+
+        .dark .project-card:hover {
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.7);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen text-gray-100">
+    <!-- Header/Navigation -->
+    <header class="fixed w-full z-50 cyber-card shadow-2xl">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="#" class="text-2xl font-bold tech-gradient">&lt;Leonardo.dev /&gt;</a>
+                <div class="flex items-center space-x-4">
+                    <button id="theme-toggle" class="p-2 rounded-lg neon-border bg-transparent hover:bg-gray-800 transition-all font-mono text-sm">
+                        <span class="theme-green-text">GREEN</span>
+                        <span class="theme-blue-text hidden">BLUE</span>
+                    </button>
+                    <button id="mobile-menu-button" class="md:hidden p-2 rounded-lg neon-border bg-transparent hover:bg-gray-800 transition-all">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div id="desktop-menu" class="hidden md:flex space-x-6">
+                        <a href="#about" class="hover:text-[#00ff9d] transition-colors font-mono">./about</a>
+                        <a href="#experience" class="hover:text-[#00ff9d] transition-colors font-mono">./experience</a>
+                        <a href="#skills" class="hover:text-[#00ff9d] transition-colors font-mono">./skills</a>
+                        <a href="#education" class="hover:text-[#00ff9d] transition-colors font-mono">./education</a>
+                        <a href="#projects" class="hover:text-[#00ff9d] transition-colors font-mono">./projects</a>
+                        <a href="#contact" class="hover:text-[#00ff9d] transition-colors font-mono">./contact</a>
+                    </div>
+                </div>
+            </div>
+            <div id="mobile-menu" class="hidden md:hidden mt-4">
+                <a href="#about" class="block py-2 hover:text-[#00ff9d] transition-colors font-mono">./about</a>
+                <a href="#experience" class="block py-2 hover:text-[#00ff9d] transition-colors font-mono">./experience</a>
+                <a href="#skills" class="block py-2 hover:text-[#00ff9d] transition-colors font-mono">./skills</a>
+                <a href="#education" class="block py-2 hover:text-[#00ff9d] transition-colors font-mono">./education</a>
+                <a href="#projects" class="block py-2 hover:text-[#00ff9d] transition-colors font-mono">./projects</a>
+                <a href="#contact" class="block py-2 hover:text-[#00ff9d] transition-colors font-mono">./contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero"
+        class="pt-32 pb-20 px-6 bg-gradient-to-br from-[#0a0e1a] via-[#1a1a2e] to-[#16213e] text-white relative overflow-hidden">
+        <div class="matrix-bg"></div>
+        <div class="scan-line"></div>
+        <div class="container mx-auto flex flex-col md:flex-row items-center justify-between relative z-10">
+            <div class="md:w-1/2 mb-10 md:mb-0">
+                <div class="terminal-bg p-4 rounded-lg mb-6 font-mono relative">
+                    <div class="text-[var(--primary-neon)] text-sm mb-2">leonardo@dev:~$ whoami</div>
+                    <div class="text-gray-300 typing-animation">Leonardo Paublo de Oliveira</div>
+                </div>
+                <h1 class="text-4xl md:text-5xl font-bold mb-4 tech-gradient glitch">Leonardo Paublo de Oliveira</h1>
+                <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-[var(--secondary-neon)]">Software Engineer | C# | .NET Core | React | Angular
+                </h2>
+                <p class="text-lg mb-8 font-mono text-gray-300">$ echo "Building robust, scalable solutions with clean code and modern practices."</p>
+                <div class="terminal-bg p-3 rounded font-mono text-sm mb-8">
+                    <div class="text-[var(--primary-neon)] mb-1">leonardo@dev:~$ cat skills.txt</div>
+                    <div class="text-gray-400">✓ Full-stack development</div>
+                    <div class="text-gray-400">✓ Clean Code, TDD & Agile Practices</div>
+                    <div class="text-gray-400">✓ CI/CD Automation</div>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="https://linkedin.com/in/leonardo-paublo" target="_blank"
+                        class="neon-border bg-transparent text-[var(--primary-neon)] px-4 py-2 rounded-lg flex items-center hover:bg-[var(--primary-neon)] hover:text-black transition-all font-mono">
+                        <i class="fab fa-linkedin mr-2"></i> ./linkedin
+                    </a>
+                    <a href="mailto:leonardopaublo@gmail.com"
+                        class="neon-border bg-transparent border-[var(--secondary-neon)] text-[var(--secondary-neon)] px-4 py-2 rounded-lg flex items-center hover:bg-[var(--secondary-neon)] hover:text-black transition-all font-mono">
+                        <i class="fas fa-envelope mr-2"></i> ./contact
+                    </a>
+                </div>
+            </div>
+            <div class="md:w-1/3">
+                <div class="neon-border p-2 rounded-lg shadow-2xl cyber-card">
+                    <img src="https://media.licdn.com/dms/image/v2/D4D03AQEf1iC3rsAqbw/profile-displayphoto-shrink_800_800/B4DZc2SChlHMAc-/0/1748962389632?e=1755129600&v=beta&t=msG9HXDYoKAW7wOJS1JS919pQ_OCovSLUmOTcpAdwHo" alt="Profile" class="rounded-lg w-full h-auto">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section py-20 px-6 bg-gradient-to-r from-[#1a1a2e] to-[#16213e]">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold mb-12 text-center tech-gradient">$ cat about.md</h2>
+            <div class="max-w-3xl mx-auto">
+                <p class="mb-6 text-lg">
+                    Software Engineer with experience since 2019, specializing in full-stack development with .NET Core,
+                    Angular, and React.
+                    Passionate about clean code, test-driven development, and implementing modern CI/CD pipelines.
+                </p>
+                <p class="mb-6 text-lg">
+                    I believe in continuous learning and staying at the forefront of technology. My approach combines
+                    technical excellence
+                    with an understanding of business needs to deliver valuable, maintainable solutions.
+                </p>
+                <p class="text-lg">
+                    Currently working with agile methodologies (Scrum) and professional working proficiency in English,
+                    enabling effective
+                    collaboration with international teams.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="section py-20 px-6 bg-gradient-to-l from-[#0a0e1a] to-[#1a1a2e]">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold mb-12 text-center tech-gradient">$ git log --experience</h2>
+
+            <div class="max-w-4xl mx-auto">
+                <div class="relative pl-8 timeline-item">
+                    <div class="absolute left-0 top-0 w-1 h-full bg-gradient-to-b from-[var(--primary-neon)] to-[var(--secondary-neon)] rounded"></div>
+                    <!-- The Methodical Group -->
+                    <div class="mb-12 relative">
+                        <div
+                            class="absolute -left-8 top-0 w-4 h-4 rounded-full bg-[var(--primary-neon)] border-4 border-[#1a1a2e] z-10 shadow-lg shadow-[var(--primary-neon)]/50">
+                        </div>
+                        <div class="p-6 cyber-card rounded-lg shadow-md hover:shadow-2xl hover:shadow-[#00ff9d]/20 transition-all">
+                            <div class="flex flex-col md:flex-row justify-between mb-2">
+                                <h3 class="text-xl font-bold">Full Stack Developer</h3>
+                                <span class="text-[var(--primary-neon)] font-mono">2022 - Present</span>
+                            </div>
+                            <h4 class="text-lg font-semibold mb-3">The Methodical Group</h4>
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li>Develop full-stack web applications using C#/.NET for backend and Angular/React for
+                                    frontend</li>
+                                <li>Designed and implemented scalable front-end architecture for finance team</li>
+                                <li>Created and maintained CI pipelines with Azure DevOps</li>
+                                <li>Collaborated with US-based Scrum team on cloud-based solutions</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- ATOMOS HYLA -->
+                    <div class="mb-12 relative">
+                        <div
+                            class="absolute -left-8 top-0 w-4 h-4 rounded-full bg-[var(--primary-neon)] border-4 border-[#1a1a2e] z-10 shadow-lg shadow-[var(--primary-neon)]/50">
+                        </div>
+                        <div class="p-6 cyber-card rounded-lg shadow-md hover:shadow-2xl hover:shadow-[#00ff9d]/20 transition-all">
+                            <div class="flex flex-col md:flex-row justify-between mb-2">
+                                <h3 class="text-xl font-bold">Full Stack Developer</h3>
+                                <span class="text-[var(--primary-neon)] font-mono">2020 - 2022</span>
+                            </div>
+                            <h4 class="text-lg font-semibold mb-3">ATOMOS HYLA</h4>
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li>Built and maintained robust systems with ASP.NET Core and Angular 9</li>
+                                <li>Managed end-to-end software projects from requirements to deployment</li>
+                                <li>Led internal tech talks to promote best practices and team alignment</li>
+                                <li>Improved system performance through database optimization</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Internship -->
+                    <div class="relative">
+                        <div
+                            class="absolute -left-8 top-0 w-4 h-4 rounded-full bg-[var(--primary-neon)] border-4 border-[#1a1a2e] z-10 shadow-lg shadow-[var(--primary-neon)]/50">
+                        </div>
+                        <div class="p-6 cyber-card rounded-lg shadow-md hover:shadow-2xl hover:shadow-[#00ff9d]/20 transition-all">
+                            <div class="flex flex-col md:flex-row justify-between mb-2">
+                                <h3 class="text-xl font-bold">Software Development Intern</h3>
+                                <span class="text-[var(--primary-neon)] font-mono">2019 - 2020</span>
+                            </div>
+                            <h4 class="text-lg font-semibold mb-3">ATOMOS HYLA</h4>
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li>Supported development in .NET Framework and AngularJS</li>
+                                <li>Worked on database optimization with SQL Server</li>
+                                <li>Contributed to a fast-paced startup development team</li>
+                                <li>Gained foundational experience in software development lifecycle</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section py-20 px-6 bg-gradient-to-r from-[#16213e] to-[#1a1a2e]">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold mb-12 text-center tech-gradient">$ ls -la /skills/</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Languages -->
+                <div class="p-6 cyber-card rounded-lg neon-border">
+                    <h3 class="text-xl font-bold mb-4">Languages</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span
+                            class="bg-[#00ff9d]/10 border border-[#00ff9d] text-[#00ff9d] px-3 py-1 rounded font-mono text-sm">C#</span>
+                        <span
+                            class="bg-[#00ff9d]/10 border border-[#00ff9d] text-[#00ff9d] px-3 py-1 rounded font-mono text-sm">TypeScript</span>
+                        <span
+                            class="bg-[#00ff9d]/10 border border-[#00ff9d] text-[#00ff9d] px-3 py-1 rounded font-mono text-sm">JavaScript</span>
+                        <span
+                            class="bg-[#00ff9d]/10 border border-[#00ff9d] text-[#00ff9d] px-3 py-1 rounded font-mono text-sm">SQL</span>
+                    </div>
+                </div>
+
+                <!-- Frameworks -->
+                <div class="p-6 cyber-card rounded-lg neon-border">
+                    <h3 class="text-xl font-bold mb-4">Frameworks</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span
+                            class="bg-[#00d4ff]/10 border border-[#00d4ff] text-[#00d4ff] px-3 py-1 rounded font-mono text-sm">.NET
+                            Core</span>
+                        <span
+                            class="bg-[#00d4ff]/10 border border-[#00d4ff] text-[#00d4ff] px-3 py-1 rounded font-mono text-sm">ASP.NET</span>
+                        <span
+                            class="bg-[#00d4ff]/10 border border-[#00d4ff] text-[#00d4ff] px-3 py-1 rounded font-mono text-sm">Angular</span>
+                        <span
+                            class="bg-[#00d4ff]/10 border border-[#00d4ff] text-[#00d4ff] px-3 py-1 rounded font-mono text-sm">React</span>
+                    </div>
+                </div>
+
+                <!-- Tools -->
+                <div class="p-6 cyber-card rounded-lg neon-border">
+                    <h3 class="text-xl font-bold mb-4">Tools & Platforms</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span
+                            class="bg-[#9d00ff]/10 border border-[#9d00ff] text-[#9d00ff] px-3 py-1 rounded font-mono text-sm">Azure
+                            DevOps</span>
+                        <span
+                            class="bg-[#9d00ff]/10 border border-[#9d00ff] text-[#9d00ff] px-3 py-1 rounded font-mono text-sm">Git</span>
+                        <span
+                            class="bg-[#9d00ff]/10 border border-[#9d00ff] text-[#9d00ff] px-3 py-1 rounded font-mono text-sm">SQL
+                            Server</span>
+                        <span
+                            class="bg-[#9d00ff]/10 border border-[#9d00ff] text-[#9d00ff] px-3 py-1 rounded font-mono text-sm">Docker</span>
+                    </div>
+                </div>
+
+                <!-- Practices -->
+                <div class="p-6 cyber-card rounded-lg neon-border">
+                    <h3 class="text-xl font-bold mb-4">Practices</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span
+                            class="bg-[#ff6b35]/10 border border-[#ff6b35] text-[#ff6b35] px-3 py-1 rounded font-mono text-sm">TDD</span>
+                        <span
+                            class="bg-[#ff6b35]/10 border border-[#ff6b35] text-[#ff6b35] px-3 py-1 rounded font-mono text-sm">Clean
+                            Code</span>
+                        <span
+                            class="bg-[#ff6b35]/10 border border-[#ff6b35] text-[#ff6b35] px-3 py-1 rounded font-mono text-sm">CI/CD</span>
+                        <span
+                            class="bg-[#ff6b35]/10 border border-[#ff6b35] text-[#ff6b35] px-3 py-1 rounded font-mono text-sm">Agile/Scrum</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="section py-20 px-6 bg-gradient-to-l from-[#0a0e1a] to-[#1a1a2e]">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold mb-12 text-center tech-gradient">$ cat /education/degrees.json</h2>
+
+            <div class="max-w-3xl mx-auto">
+                <div class="mb-8 p-6 cyber-card rounded-lg shadow-md neon-border">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold">Bachelor's Degree in Information Systems</h3>
+                        <span class="text-[var(--primary-neon)] font-mono">2021 - 2024</span>
+                    </div>
+                    <h4 class="text-lg font-semibold mb-2">UniMetrocamp Wyden</h4>
+                    <p>Comprehensive studies covering software development, database systems, business analysis, and IT
+                        project management.</p>
+                </div>
+
+                <div class="p-6 cyber-card rounded-lg shadow-md neon-border">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold">Technical Degree in Mechatronics, Robotics & Automation</h3>
+                        <span class="text-[var(--primary-neon)] font-mono">2018 - 2020</span>
+                    </div>
+                    <h4 class="text-lg font-semibold mb-2">Colégio Politécnico Bento Quirino</h4>
+                    <p>Specialized in industrial automation, robotics, and embedded systems, providing a foundation for
+                        analytical problem-solving.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section py-20 px-6 bg-gradient-to-r from-[#16213e] to-[#1a1a2e]">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold mb-12 text-center tech-gradient">$ find ./projects -type f -name "*.featured"</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Financial Dashboard -->
+                <div
+                    class="project-card cyber-card rounded-lg overflow-hidden shadow-md transition duration-300 neon-border hover:shadow-2xl hover:shadow-[#00ff9d]/20">
+                    <div class="h-48 bg-gradient-to-br from-[#00ff9d] to-[#00d4ff] flex items-center justify-center">
+                        <i class="fas fa-chart-line text-white text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Financial Dashboard</h3>
+                        <p class="text-gray-300 mb-4">Interactive dashboard for financial analysis
+                            with real-time data visualization.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span
+                                class="bg-[#00ff9d]/10 border border-[#00ff9d] text-[#00ff9d] px-2 py-1 rounded text-sm font-mono">React</span>
+                            <span
+                                class="bg-[#00ff9d]/10 border border-[#00ff9d] text-[#00ff9d] px-2 py-1 rounded text-sm font-mono">.NET
+                                Core</span>
+                            <span
+                                class="bg-[#00ff9d]/10 border border-[#00ff9d] text-[#00ff9d] px-2 py-1 rounded text-sm font-mono">Chart.js</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Legacy System Refactor -->
+                <div
+                    class="project-card cyber-card rounded-lg overflow-hidden shadow-md transition duration-300 neon-border hover:shadow-2xl hover:shadow-[#00ff9d]/20">
+                    <div class="h-48 bg-gradient-to-br from-[#00d4ff] to-[#9d00ff] flex items-center justify-center">
+                        <i class="fas fa-code-branch text-white text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Legacy System Refactor</h3>
+                        <p class="text-gray-300 mb-4">Modernization of legacy application with
+                            Angular 9 and .NET Core microservices.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span
+                                class="bg-[#00d4ff]/10 border border-[#00d4ff] text-[#00d4ff] px-2 py-1 rounded text-sm font-mono">Angular
+                                9</span>
+                            <span
+                                class="bg-[#00d4ff]/10 border border-[#00d4ff] text-[#00d4ff] px-2 py-1 rounded text-sm font-mono">.NET
+                                Core</span>
+                            <span
+                                class="bg-[#00d4ff]/10 border border-[#00d4ff] text-[#00d4ff] px-2 py-1 rounded text-sm font-mono">Microservices</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CI/CD Pipeline -->
+                <div
+                    class="project-card cyber-card rounded-lg overflow-hidden shadow-md transition duration-300 neon-border hover:shadow-2xl hover:shadow-[#00ff9d]/20">
+                    <div class="h-48 bg-gradient-to-br from-[#9d00ff] to-[#ff6b35] flex items-center justify-center">
+                        <i class="fas fa-project-diagram text-white text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">CI/CD Pipeline Automation</h3>
+                        <p class="text-gray-300 mb-4">Automated build and deployment pipeline with
+                            Azure DevOps for multiple environments.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span
+                                class="bg-[#9d00ff]/10 border border-[#9d00ff] text-[#9d00ff] px-2 py-1 rounded text-sm font-mono">Azure
+                                DevOps</span>
+                            <span
+                                class="bg-[#9d00ff]/10 border border-[#9d00ff] text-[#9d00ff] px-2 py-1 rounded text-sm font-mono">Docker</span>
+                            <span
+                                class="bg-[#9d00ff]/10 border border-[#9d00ff] text-[#9d00ff] px-2 py-1 rounded text-sm font-mono">YAML</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section py-20 px-6 bg-gradient-to-l from-[#0a0e1a] to-[#1a1a2e]">
+        <div class="container mx-auto max-w-4xl">
+            <h2 class="text-3xl font-bold mb-12 text-center tech-gradient">$ curl -X POST /contact</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div>
+                    <div class="cyber-card p-8 rounded-lg shadow-md neon-border">
+                        <form id="contact-form">
+                            <div class="mb-4">
+                                <label for="name" class="block text-[var(--primary-neon)] mb-2 font-mono">Name</label>
+                                <input type="text" id="name"
+                                    class="w-full px-4 py-2 rounded border border-[var(--primary-neon)]/30 bg-transparent text-gray-100 focus:outline-none focus:ring-2 focus:ring-[var(--primary-neon)] font-mono">
+                            </div>
+                            <div class="mb-4">
+                                <label for="email" class="block text-[var(--primary-neon)] mb-2 font-mono">Email</label>
+                                <input type="email" id="email"
+                                    class="w-full px-4 py-2 rounded border border-[var(--primary-neon)]/30 bg-transparent text-gray-100 focus:outline-none focus:ring-2 focus:ring-[var(--primary-neon)] font-mono">
+                            </div>
+                            <div class="mb-6">
+                                <label for="message" class="block text-[var(--primary-neon)] mb-2 font-mono">Message</label>
+                                <textarea id="message" rows="4"
+                                    class="w-full px-4 py-2 rounded border border-[var(--primary-neon)]/30 bg-transparent text-gray-100 focus:outline-none focus:ring-2 focus:ring-[var(--primary-neon)] font-mono"></textarea>
+                            </div>
+                            <button type="submit"
+                                class="w-full neon-border bg-transparent text-[var(--primary-neon)] py-3 px-4 rounded font-mono hover:bg-[var(--primary-neon)] hover:text-black transition-all">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="flex flex-col justify-between">
+                    <div class="cyber-card p-8 rounded-lg shadow-md neon-border">
+                        <h3 class="text-xl font-bold mb-4">Contact Information</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <i class="fas fa-envelope text-[var(--primary-neon)] mr-4 text-xl"></i>
+                                <span>leonardopaublo@gmail.com</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fab fa-linkedin text-[var(--primary-neon)] mr-4 text-xl"></i>
+                                <a href="https://linkedin.com/in/leonardo-paublo" target="_blank"
+                                    class="hover:underline">linkedin.com/in/leonardo-paublo</a>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-phone text-[var(--primary-neon)] mr-4 text-xl"></i>
+                                <span>+55 (19) 98843-4373</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-map-marker-alt text-[var(--primary-neon)] mr-4 text-xl"></i>
+                                <span>Campinas, São Paulo, Brazil</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 flex justify-center space-x-6">
+                        <a href="https://github.com/LeonardoPaublo" target="_blank"
+                            class="text-gray-300 hover:text-[var(--primary-neon)] text-2xl transition-colors">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://www.instagram.com/leonardo_pdo/" target="_blank"
+                            class="text-gray-300 hover:text-[var(--primary-neon)] text-2xl transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://linkedin.com/in/leonardo-paublo" target="_blank"
+                            class="text-gray-300 hover:text-[var(--primary-neon)] text-2xl transition-colors">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-[#0a0e1a] to-[#16213e] text-gray-300 py-8 border-t border-[var(--primary-neon)]/20">
+        <div class="container mx-auto px-6 text-center">
+            <p>© 2025 Leonardo Paublo de Oliveira. All rights reserved.</p>
+            <p class="mt-2 text-sm">Built with passion for software engineering and web development.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Theme handling
+        function setTheme(theme) {
+            const body = document.body;
+            const greenText = document.querySelector('.theme-green-text');
+            const blueText = document.querySelector('.theme-blue-text');
+            
+            if (theme === 'blue') {
+                body.classList.add('theme-blue');
+                greenText.classList.add('hidden');
+                blueText.classList.remove('hidden');
+                localStorage.setItem('cyber-theme', 'blue');
+            } else {
+                body.classList.remove('theme-blue');
+                greenText.classList.remove('hidden');
+                blueText.classList.add('hidden');
+                localStorage.setItem('cyber-theme', 'green');
+            }
+        }
+
+        // Theme toggle
+        document.getElementById('theme-toggle').addEventListener('click', function () {
+            if (document.body.classList.contains('theme-blue')) {
+                setTheme('green');
+            } else {
+                setTheme('blue');
+            }
+        });
+
+        // Initialize theme
+        const storedTheme = localStorage.getItem('cyber-theme') || 'green';
+        setTheme(storedTheme);
+
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function () {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+
+                // Close mobile menu if open
+                document.getElementById('mobile-menu').classList.add('hidden');
+            });
+        });
+
+        // Contact form submission
+        document.getElementById('contact-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            alert('Thank you for your message! I will get back to you soon.');
+            this.reset();
+        });
+
+        // Animate sections on scroll
+        const animateOnScroll = () => {
+            const sections = document.querySelectorAll('.section');
+
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+
+                if (sectionTop < windowHeight - 100) {
+                    section.classList.add('section-visible');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+    </script>
+</body>
+
+</html>
